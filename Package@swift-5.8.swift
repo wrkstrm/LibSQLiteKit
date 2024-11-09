@@ -1,4 +1,4 @@
-// swift-tools-version:6.0
+// swift-tools-version:5.8
 import PackageDescription
 
 let package = Package(
@@ -26,14 +26,21 @@ let package = Package(
                 .product(name: "AsyncKit", package: "async-kit"),
                 .product(name: "SQLiteNIO", package: "sqlite-nio"),
                 .product(name: "SQLKit", package: "sql-kit"),
-            ]
+            ],
+            swiftSettings: swiftSettings
         ),
         .testTarget(
             name: "SQLiteKitTests",
             dependencies: [
                 .product(name: "SQLKitBenchmark", package: "sql-kit"),
                 .target(name: "SQLiteKit"),
-            ]
+            ],
+            swiftSettings: swiftSettings
         ),
     ]
 )
+
+var swiftSettings: [SwiftSetting] { [
+    .enableUpcomingFeature("ConciseMagicFile"),
+    .enableUpcomingFeature("ForwardTrailingClosures"),
+] }
